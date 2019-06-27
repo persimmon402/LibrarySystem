@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -22,7 +23,7 @@ public class AllmemberForm extends JFrame {
 		  setTitle("회원정보");
 		  
 		  Object [][]rowData = new Object[0][7];	  
-		  String []columTitle = {"NO.","회원번호(pk)","아이디","비밀번호","이름","전화번호","주소"};	  
+		  String []columTitle = {"NO.","회원번호(pk)","아이디","이름","전화번호","주소"};	  //보안상 비밀번호를 제거했습니다
 		  dtm = new DefaultTableModel(rowData,columTitle);
 
 		  table = new JTable(dtm);
@@ -52,9 +53,20 @@ public class AllmemberForm extends JFrame {
 		  
 	   }//생성자
 	   
+	   public void showMsg(String msg) {
+			JOptionPane.showMessageDialog(this, msg);
+		}// showMsg
+		
+		public String showInput(String msg) {
+			return JOptionPane.showInputDialog(this, msg);
+		}// showInput
+		
+		public int showConfirm(String msg) {
+			return JOptionPane.showConfirmDialog(this, msg);
+		}// showConfirm
 	   
 
 	   public static void main(String[] args) {
 		new AllmemberForm();
-	}
+	   }
 	}//ServiceForm
