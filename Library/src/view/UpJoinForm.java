@@ -5,6 +5,7 @@ import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -13,7 +14,7 @@ public class UpJoinForm extends JFrame{
 
 	public JTextField tf_id, tf_name, tf_phone1, tf_phone2, tf_phone3, tf_addr;
 	public JPasswordField tf_pwd;
-	public JButton bt_check, bt_submit, bt_cancle;
+	public JButton bt_check, bt_submit, bt_cancel;
 	public JLabel la_title, la_id, la_pwd, la_name, la_phone, la_addr, la_bar1, la_bar2;
 	
 	
@@ -31,7 +32,7 @@ public class UpJoinForm extends JFrame{
 		
 		bt_check = new JButton("중복확인");
 		bt_submit = new JButton("등록");
-		bt_cancle = new JButton("취소");
+		bt_cancel = new JButton("취소");
 	
 		la_title = new JLabel("내정보 수정");
 		la_id = new JLabel("ID              :");
@@ -87,7 +88,7 @@ public class UpJoinForm extends JFrame{
 		tf_addr.setBounds(500, 410, 220, 40);
 		
 		bt_submit.setBounds(450, 510, 80, 40);
-		bt_cancle.setBounds(570, 510, 80, 40);
+		bt_cancel.setBounds(570, 510, 80, 40);
 		
 		
 		
@@ -108,12 +109,12 @@ public class UpJoinForm extends JFrame{
 		add(la_bar2);
 		add(bt_check);
 		add(bt_submit);
-		add(bt_cancle);
+		add(bt_cancel);
 		
 		bt_submit.setBackground(new Color(204,102,255));
 		bt_submit.setForeground(Color.white);
-		bt_cancle.setBackground(new Color(204,102,255));
-		bt_cancle.setForeground(Color.white);
+		bt_cancel.setBackground(new Color(204,102,255));
+		bt_cancel.setForeground(Color.white);
 		bt_check.setBackground(new Color(204,102,255));
 		bt_check.setForeground(Color.white);
 		setBackground(new Color(255,204,255));
@@ -121,6 +122,11 @@ public class UpJoinForm extends JFrame{
 		setBounds(300, 200, 1100, 700);
 		setVisible(true);
 	}
+	
+	public void showMsg(String msg) {
+		JOptionPane.showMessageDialog(this, msg);
+	}
+
 	
 	
 public static void main(String[] args) {
