@@ -10,11 +10,38 @@ import javax.swing.JTable;
 
 public class ServiceForm extends JFrame{
 	
-	JButton bt_room1, bt_room2, bt_room3, bt_logout,
-			bt_reserv, bt_out, bt_cont, bt_myinfo,
-			bt_seat1_1, bt_seat1_2, bt_seat1_3, bt_seat1_4, bt_seat1_5, bt_seat1_6, bt_seat1_7, bt_seat1_8, bt_seat1_9,
-			bt_seat2_1, bt_seat2_2, bt_seat2_3, bt_seat2_4, bt_seat2_5, bt_seat2_6, bt_seat2_7, bt_seat2_8, bt_seat2_9,
-			bt_seat3_1, bt_seat3_2, bt_seat3_3, bt_seat3_4, bt_seat3_5, bt_seat3_6, bt_seat3_7, bt_seat3_8, bt_seat3_9;
+	JButton bt_room1, bt_room2, bt_room3, bt_logout;
+	public JButton bt_reserv;
+	JButton bt_out;
+	JButton bt_cont;
+	JButton bt_myinfo;
+	JButton bt_seat1_1;
+	JButton bt_seat1_2;
+	JButton bt_seat1_3;
+	JButton bt_seat1_4;
+	JButton bt_seat1_5;
+	JButton bt_seat1_6;
+	JButton bt_seat1_7;
+	JButton bt_seat1_8;
+	JButton bt_seat1_9;
+	JButton bt_seat2_1;
+	JButton bt_seat2_2;
+	JButton bt_seat2_3;
+	JButton bt_seat2_4;
+	JButton bt_seat2_5;
+	JButton bt_seat2_6;
+	JButton bt_seat2_7;
+	JButton bt_seat2_8;
+	JButton bt_seat2_9;
+	JButton bt_seat3_1;
+	JButton bt_seat3_2;
+	JButton bt_seat3_3;
+	JButton bt_seat3_4;
+	JButton bt_seat3_5;
+	JButton bt_seat3_6;
+	JButton bt_seat3_7;
+	JButton bt_seat3_8;
+	JButton bt_seat3_9;
 	JTable table_service;
 	JPanel p_back, p_room1, p_room2, p_room3;
 	

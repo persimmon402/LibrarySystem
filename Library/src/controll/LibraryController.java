@@ -4,11 +4,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.Timestamp;
+import java.util.Calendar;
 
 import model.dao.LibraryDAO;
+import model.vo.ReservationVO;
+import model.vo.SitVO;
 import model.vo.UserVO;
 import view.AllmemberForm;
 import view.Joinform;
+import view.SeatReserveSelectWindow;
 import view.ServiceForm;
 import view.ServiceForm_adm;
 import view.UpJoinForm;
@@ -22,10 +27,17 @@ public class LibraryController implements ActionListener{
 	Joinform joinForm;
 	loginForm loginForm;
 	UpJoinForm upJoinForm;
+	SeatReserveSelectWindow seatForm;
+	
+	//열람실 번호 가져오기
+	boolean one,two,three;
 	
 	public LibraryController() {
 		allmemberForm = new AllmemberForm();
 		serviceForm_adm = new ServiceForm_adm();
+		serviceForm = new ServiceForm();
+		seatForm = new SeatReserveSelectWindow();
+		loginForm = new loginForm();
 		eventup();
 	}
 	
@@ -34,6 +46,13 @@ public class LibraryController implements ActionListener{
 		allmemberForm.bt_up.addActionListener(this);
 		allmemberForm.bt_del.addActionListener(this);
 		allmemberForm.bt_exit.addActionListener(this);
+		
+		serviceForm.bt_reserv.addActionListener(this);
+		seatForm.bt_room1.addActionListener(this);
+		seatForm.bt_room2.addActionListener(this);
+		seatForm.bt_room3.addActionListener(this);
+		seatForm.bt_logout.addActionListener(this);
+		seatForm.bt_reserve.addActionListener(this);
 		
 		allmemberForm.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -131,9 +150,166 @@ public class LibraryController implements ActionListener{
 			upJoinForm.setVisible(false);
 			serviceForm.setVisible(true);
 			
+		}else if(ob==serviceForm.bt_reserv) {//서비스폼에서 예약버튼누를경우 -이진주
+
+			serviceForm.setVisible(false);
+			seatForm.setVisible(true);
+			
+//			1열람실 버튼값을 true로 만들어주기(기본값)
+			one=true;
+			two=false;
+			three=false;
+			
+//			SeatReserveSelectWindow이 열리면 자동으로 퇴실시간-현재시간 제외한 예약테이블에 예약한 사람들 버튼색 변경해주기
+			LibraryDAO dao = new LibraryDAO();
+			dao.upOverSit();
+			dao.delSit();
+			
+		}else if(ob==seatForm.bt_room1) {//SeatReserveSelectWindow에서 열람실1버튼 눌렀을경우 -이진주
+
+			seatForm.p_room1.setVisible(true);
+			seatForm.p_room2.setVisible(false);
+			seatForm.p_room3.setVisible(false);
+			
+//			1열람실 true로 만들어주기
+			one=true;
+			two=false;
+			three=false;
+
+		}else if(ob==seatForm.bt_room2) {//SeatReserveSelectWindow에서 열람실2버튼 눌렀을경우 -이진주
+
+			seatForm.p_room1.setVisible(false);
+			seatForm.p_room2.setVisible(true);
+			seatForm.p_room3.setVisible(false);
+			
+//			2열람실  true로 만들어주기
+			one=false;
+			two=true;
+			three=false;
+
+		}else if(ob==seatForm.bt_room3) {//SeatReserveSelectWindow에서 열람실3버튼 눌렀을경우 -이진주
+
+			seatForm.p_room1.setVisible(false);
+			seatForm.p_room2.setVisible(false);
+			seatForm.p_room3.setVisible(true);
+			
+//			3열람실 true로 만들어주기
+			one=false;
+			two=false;
+			three=true;
+
+		}else if(ob==seatForm.bt_logout) {//SeatReserveSelectWindow에서 로그아웃 버튼 눌렀을경우 -이진주
+
+			if(seatForm.showConfirm("로그아웃 하시겠습니까?")==0) {
+				seatForm.setVisible(false);
+				loginForm.setVisible(true);
+			}
+		}else if(ob==seatForm.bt_reserve) {//예약버튼 누를시 -이진주
+			LibraryDAO dao = new LibraryDAO();
+			String sitNum =seatForm.showInput("예약하실 좌석번호를 입력하세요");
+			int sit_num = Integer.parseInt(sitNum);
+			ReservationVO rv = new ReservationVO();
+			UserVO uv = new UserVO();
+			SitVO sv = new SitVO();
+			
+			//시간계산하기
+			long retryDate = System.currentTimeMillis(); 
+			Timestamp sit_start = new Timestamp(retryDate); 
+			Calendar cal = Calendar.getInstance(); 
+			cal.setTimeInMillis(sit_start.getTime());
+			cal.setTimeInMillis(sit_start.getTime()); 
+			cal.add(Calendar.HOUR, 4); 
+			Timestamp sit_end = new Timestamp(cal.getTime().getTime()); 			
+			
+			for(int i=1;i<28;i++) {
+			if(one) {
+				rv.setRes_num(i);
+				rv.setSit_num(sit_num);
+				rv.setUser_num(uv.getUser_num());
+				rv.setSit_start(sit_start);
+				rv.setSit_end(sit_end);
+
+				sv.setSit_num(sit_num);
+				sv.setRoom_num(1);
+				sv.setSit_check(1);
+				
+				if(dao.checkSit(sit_num)) {
+					seatForm.showMsg("이미 예약된 자리입니다");
+				}else if(dao.reserveInto(rv)&&dao.reserveSit(sv)) {
+					seatForm.showMsg("예약되셨습니다!");
+				}else {
+					seatForm.showMsg("예약실패하였습니다!");
+				}
+			}else if(two) {
+				rv.setRes_num(i);
+				rv.setSit_num(sit_num);
+				rv.setUser_num(uv.getUser_num());
+				rv.setSit_start(sit_start);
+				rv.setSit_end(sit_end);
+
+				sv.setSit_num(sit_num);
+				sv.setRoom_num(2);
+				sv.setSit_check(1);
+				
+				if(dao.checkSit(sit_num)) {
+					seatForm.showMsg("이미 예약된 자리입니다");
+				}else if(dao.reserveInto(rv)&&dao.reserveSit(sv)) {
+					seatForm.showMsg("예약되셨습니다!");
+				}else {
+					seatForm.showMsg("예약실패하였습니다!");
+				}
+			}else if(three) {
+				rv.setRes_num(i);
+				rv.setSit_num(sit_num);
+				rv.setUser_num(uv.getUser_num());
+				rv.setSit_start(sit_start);
+				rv.setSit_end(sit_end);
+
+				sv.setSit_num(sit_num);
+				sv.setRoom_num(3);
+				sv.setSit_check(1);
+				
+				if(dao.checkSit(sit_num)) {
+					seatForm.showMsg("이미 예약된 자리입니다");
+				}else if(dao.reserveInto(rv)&&dao.reserveSit(sv)) {
+					seatForm.showMsg("예약되셨습니다!");
+				}else {
+					seatForm.showMsg("예약실패하였습니다!");
+				}
+			}
+			}//for
+		}else if(ob==seatForm.bt_cancel) {//SeatReserveSelectWindow에서 취소버튼 누른경우 -이진주
+			seatForm.setVisible(false);
+			serviceForm.setVisible(true);
 		}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		
-	}
+	}//actionPerformed
 	
 	public static void main(String[] args) {
 		new LibraryController();
