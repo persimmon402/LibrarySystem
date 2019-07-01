@@ -129,8 +129,8 @@ public class UpJoinForm extends JFrame{
 
 	
 	
-public static void main(String[] args) {
-	new UpJoinForm();
-}	
+//public static void main(String[] args) {
+//	new UpJoinForm();
+//}	
 
 }//class

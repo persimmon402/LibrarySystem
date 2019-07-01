@@ -39,6 +39,7 @@ public class LibraryController implements ActionListener{
 		seatForm = new SeatReserveSelectWindow();
 		loginForm = new loginForm();
 		joinForm = new Joinform();
+		upJoinForm = new UpJoinForm();
 		eventup();
 	}
 	
@@ -62,6 +63,10 @@ public class LibraryController implements ActionListener{
 		joinForm.bt_check.addActionListener(this);
 		joinForm.bt_submit.addActionListener(this);
 		joinForm.bt_cancel.addActionListener(this);
+		
+		upJoinForm.bt_check.addActionListener(this);
+		upJoinForm.bt_submit.addActionListener(this);
+		upJoinForm.bt_cancel.addActionListener(this);
 		
 		allmemberForm.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
