@@ -64,27 +64,13 @@ public class LibraryDAO {
 		return false;
 	}
 	
-	public void checkId() {//입력한 아이디가 중복인지 아닌지 확인하는 기능 -김지우
-		Joinform joinForm = new Joinform();
-		String id = joinForm.showInput("아이디를 입력하세요.");
-		
-		LibraryDAO dao = new LibraryDAO();
-		if(dao.findExistId(id.trim()) == 1){
-			joinForm.showMsg("이미 사용중인 아이디입니다!!");
-		} else {
-			joinForm.showMsg("그 아이디는 사용가능합니다.");
-			if(joinForm.showConfirm("이 아이디를 사용하시겠습니까?")==0) {
-				joinForm.tf_id.setText(id);
-			}
-		}
-	}
 	
 	public int findExistId(String id) {// 특정 아이디의 (DB내의)존재 유무체크==>등록시 에러 발생을 방지하기 위한 기능 - 김지우
 		connect();
 		int count = 0;
 		try {
 			String sql = "select count(*) cnt from user_tab where user_id=?";
-			stmt.getConnection().prepareStatement(sql);
+			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, id);
 			rs = stmt.executeQuery();
 			if (rs.next()) {

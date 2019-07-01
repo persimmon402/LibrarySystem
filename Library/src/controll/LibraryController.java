@@ -38,6 +38,7 @@ public class LibraryController implements ActionListener{
 		serviceForm = new ServiceForm();
 		seatForm = new SeatReserveSelectWindow();
 		loginForm = new loginForm();
+		joinForm = new Joinform();
 		eventup();
 	}
 	
@@ -53,6 +54,14 @@ public class LibraryController implements ActionListener{
 		seatForm.bt_room3.addActionListener(this);
 		seatForm.bt_logout.addActionListener(this);
 		seatForm.bt_reserve.addActionListener(this);
+		
+		loginForm.bt_join.addActionListener(this);
+		loginForm.bt_login.addActionListener(this);
+		loginForm.bt_manager.addActionListener(this);
+		
+		joinForm.bt_check.addActionListener(this);
+		joinForm.bt_submit.addActionListener(this);
+		joinForm.bt_cancel.addActionListener(this);
 		
 		allmemberForm.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -85,6 +94,9 @@ public class LibraryController implements ActionListener{
 			
 			allmemberForm.setVisible(false);
 			serviceForm_adm.setVisible(true);
+			
+		} else if(ob == loginForm.bt_join) {//로그인폼에서 회원가입 버튼을 누름 - 김지우
+			joinForm.setVisible(true);
 			
 		} else if(ob==joinForm.bt_submit){//회원가입창에서 등록 버튼을 누름-김지우
 			LibraryDAO dao = new LibraryDAO();
@@ -122,9 +134,9 @@ public class LibraryController implements ActionListener{
 			loginForm.setVisible(true);
 			
 		} else if (ob == joinForm.bt_check) {//회원가입창에서 중복확인 버튼을 누름-김지우
+			System.out.println("중복확인버튼");
 			
-			LibraryDAO dao = new LibraryDAO();
-			dao.checkId();
+			checkId();
 		
 		} else if(ob == upJoinForm.bt_submit ) {//내정보수정 창에서 수정완료 버튼을 누름-김지우 
 			
@@ -282,35 +294,26 @@ public class LibraryController implements ActionListener{
 			seatForm.setVisible(false);
 			serviceForm.setVisible(true);
 		}
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+	
 			
 		
 	}//actionPerformed
 	
+	private void checkId() {//입력한 아이디가 중복인지 아닌지 확인하는 기능 - 김지우
+		LibraryDAO dao = new LibraryDAO();
+
+		String id = joinForm.showInput("아이디를 입력하세요.");
+		if(dao.findExistId(id.trim()) == 1){
+			joinForm.showMsg("이미 사용중인 아이디입니다!!");
+		} else {
+			joinForm.showMsg("그 아이디는 사용가능합니다.");
+			if(joinForm.showConfirm("이 아이디를 사용하시겠습니까?")==0) {
+				joinForm.tf_id.setText(id);
+			}
+		}
+		
+	}
+
 	public static void main(String[] args) {
 		new LibraryController();
 	}
