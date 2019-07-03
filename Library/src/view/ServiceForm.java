@@ -2,49 +2,30 @@ package view;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import model.vo.ReservationVO;
 
 public class ServiceForm extends JFrame{
+	DefaultTableModel dtm;
+	public JButton bt_room1, bt_room2, bt_room3, bt_logout,
+			bt_reserv, bt_out, bt_cont, bt_myinfo,
+			bt_seat1_1, bt_seat1_2, bt_seat1_3, bt_seat1_4, bt_seat1_5, bt_seat1_6, bt_seat1_7, bt_seat1_8, bt_seat1_9,
+			bt_seat2_1, bt_seat2_2, bt_seat2_3, bt_seat2_4, bt_seat2_5, bt_seat2_6, bt_seat2_7, bt_seat2_8, bt_seat2_9,
+			bt_seat3_1, bt_seat3_2, bt_seat3_3, bt_seat3_4, bt_seat3_5, bt_seat3_6, bt_seat3_7, bt_seat3_8, bt_seat3_9;
+	public JTable table_service;
+	public JPanel p_back, p_room1, p_room2, p_room3;
+	JScrollPane scroll_table;
 	
-	JButton bt_room1, bt_room2, bt_room3, bt_logout;
-	public JButton bt_reserv;
-	JButton bt_out;
-	JButton bt_cont;
-	JButton bt_myinfo;
-	JButton bt_seat1_1;
-	JButton bt_seat1_2;
-	JButton bt_seat1_3;
-	JButton bt_seat1_4;
-	JButton bt_seat1_5;
-	JButton bt_seat1_6;
-	JButton bt_seat1_7;
-	JButton bt_seat1_8;
-	JButton bt_seat1_9;
-	JButton bt_seat2_1;
-	JButton bt_seat2_2;
-	JButton bt_seat2_3;
-	JButton bt_seat2_4;
-	JButton bt_seat2_5;
-	JButton bt_seat2_6;
-	JButton bt_seat2_7;
-	JButton bt_seat2_8;
-	JButton bt_seat2_9;
-	JButton bt_seat3_1;
-	JButton bt_seat3_2;
-	JButton bt_seat3_3;
-	JButton bt_seat3_4;
-	JButton bt_seat3_5;
-	JButton bt_seat3_6;
-	JButton bt_seat3_7;
-	JButton bt_seat3_8;
-	JButton bt_seat3_9;
-	JTable table_service;
-	JPanel p_back, p_room1, p_room2, p_room3;
-	
+	public String loginId; //서비스폼이 켜져잇는동안 메모리 기억 
 	public ServiceForm() {
 		bt_room1 = new JButton("1열람실");
 		bt_room2 = new JButton("2열람실");
@@ -56,37 +37,44 @@ public class ServiceForm extends JFrame{
 		bt_cont = new JButton("연 장");
 		bt_myinfo = new JButton("내 정보보기");
 		
-		bt_seat1_1 = new JButton();
-		bt_seat1_2 = new JButton();
-		bt_seat1_3 = new JButton();
-		bt_seat1_4 = new JButton();
-		bt_seat1_5 = new JButton();
-		bt_seat1_6 = new JButton();
-		bt_seat1_7 = new JButton();
-		bt_seat1_8 = new JButton();
-		bt_seat1_9 = new JButton();
+		bt_seat1_1 = new JButton("1");
+		bt_seat1_2 = new JButton("2");
+		bt_seat1_3 = new JButton("3");
+		bt_seat1_4 = new JButton("4");
+		bt_seat1_5 = new JButton("5");
+		bt_seat1_6 = new JButton("6");
+		bt_seat1_7 = new JButton("7");
+		bt_seat1_8 = new JButton("8");
+		bt_seat1_9 = new JButton("9");
 		
-		bt_seat2_1 = new JButton();
-		bt_seat2_2 = new JButton();
-		bt_seat2_3 = new JButton();
-		bt_seat2_4 = new JButton();
-		bt_seat2_5 = new JButton();
-		bt_seat2_6 = new JButton();
-		bt_seat2_7 = new JButton();
-		bt_seat2_8 = new JButton();
-		bt_seat2_9 = new JButton();
+		bt_seat2_1 = new JButton("10");
+		bt_seat2_2 = new JButton("11");
+		bt_seat2_3 = new JButton("12");
+		bt_seat2_4 = new JButton("13");
+		bt_seat2_5 = new JButton("14");
+		bt_seat2_6 = new JButton("15");
+		bt_seat2_7 = new JButton("16");
+		bt_seat2_8 = new JButton("17");
+		bt_seat2_9 = new JButton("18");
 		
-		bt_seat3_1 = new JButton();
-		bt_seat3_2 = new JButton();
-		bt_seat3_3 = new JButton();
-		bt_seat3_4 = new JButton();
-		bt_seat3_5 = new JButton();
-		bt_seat3_6 = new JButton();
-		bt_seat3_7 = new JButton();
-		bt_seat3_8 = new JButton();
-		bt_seat3_9 = new JButton();
-		table_service = new JTable();
+		bt_seat3_1 = new JButton("19");
+		bt_seat3_2 = new JButton("20");
+		bt_seat3_3 = new JButton("21");
+		bt_seat3_4 = new JButton("22");
+		bt_seat3_5 = new JButton("23");
+		bt_seat3_6 = new JButton("24");
+		bt_seat3_7 = new JButton("25");
+		bt_seat3_8 = new JButton("26");
+		bt_seat3_9 = new JButton("27");
 		
+		
+	
+		  Object [][]rowData = new Object[0][5];	  
+		  String []columTitle = {"사용자번호", "좌석번호","시작시간","끝시간","남은시간"};	  
+		  dtm = new DefaultTableModel(rowData,columTitle); 
+		  table_service = new JTable(dtm);
+		  scroll_table = new JScrollPane(table_service);
+		  
 		p_back = new JPanel();
 		p_room1 = new JPanel();
 		p_room2 = new JPanel();
@@ -104,7 +92,7 @@ public class ServiceForm extends JFrame{
 		bt_cont.setBounds(593, 580, 110, 45);
 		bt_myinfo.setBounds(749, 580, 110, 45);
 		
-		table_service.setBounds(45, 107, 399, 408);
+		scroll_table.setBounds(45, 107, 399, 408);
 		
 		p_room1.setBounds(499, 67, 492, 465);
 		p_room2.setBounds(499, 67, 492, 465);
@@ -121,7 +109,7 @@ public class ServiceForm extends JFrame{
 		p_back.add(bt_out);
 		p_back.add(bt_cont);
 		p_back.add(bt_myinfo);
-		p_back.add(table_service);
+		p_back.add(scroll_table);
 		
 		p_room1.add(bt_seat1_1);
 		p_room1.add(bt_seat1_2);
@@ -162,7 +150,7 @@ public class ServiceForm extends JFrame{
 		p_back.add(p_room1);
 		p_back.add(p_room2);
 		p_back.add(p_room3);
-		p_back.add(table_service);
+		
 		p_back.setLayout(null);
 		p_back.setBackground(Color.orange);
 		p_room1.setVisible(true);
@@ -171,10 +159,171 @@ public class ServiceForm extends JFrame{
 		setContentPane(p_back);
 		setLayout(null);
 		setBounds(100, 100, 1100, 700);
-		setVisible(true);
+		setVisible(false);
 	}
 	
-	public static void main(String[] args) {
-		new ServiceForm();
+	
+	public void change_sitcolor_room1(int sitnum) {
+		if(sitnum==1) {
+		bt_seat1_1.setBackground(Color.red);
+		}else if(sitnum==2) {
+			bt_seat1_2.setBackground(Color.red);
+			}else if(sitnum==3) {
+				bt_seat1_3.setBackground(Color.red);
+			}else if(sitnum==4) {
+				bt_seat1_4.setBackground(Color.red);
+			}else if(sitnum==5) {
+				bt_seat1_5.setBackground(Color.red);
+			}else if(sitnum==6) {
+				bt_seat1_6.setBackground(Color.red);
+			}else if(sitnum==7) {
+				bt_seat1_7.setBackground(Color.red);
+			}else if(sitnum==8) {
+				bt_seat1_8.setBackground(Color.red);
+			}else if(sitnum==9) {
+				bt_seat1_9.setBackground(Color.red);
+			}
 	}
-}
+	
+	
+	public void change_sitcolor_room2(int sitnum) {
+		if(sitnum==10) {
+		bt_seat2_1.setBackground(Color.red);
+		}else if(sitnum==11) {
+			bt_seat2_2.setBackground(Color.red);
+			}else if(sitnum==12) {
+				bt_seat2_3.setBackground(Color.red);
+			}else if(sitnum==13) {
+				bt_seat2_4.setBackground(Color.red);
+			}else if(sitnum==14) {
+				bt_seat2_5.setBackground(Color.red);
+			}else if(sitnum==15) {
+				bt_seat2_6.setBackground(Color.red);
+			}else if(sitnum==16) {
+				bt_seat2_7.setBackground(Color.red);
+			}else if(sitnum==17) {
+				bt_seat2_8.setBackground(Color.red);
+			}else if(sitnum==18) {
+				bt_seat2_9.setBackground(Color.red);
+			}
+	}
+	
+	public void change_sitcolor_room3(int sitnum) {
+		if(sitnum==19) {
+		bt_seat3_1.setBackground(Color.red);
+		}else if(sitnum==20) {
+			bt_seat3_2.setBackground(Color.red);
+			}else if(sitnum==21) {
+				bt_seat3_3.setBackground(Color.red);
+			}else if(sitnum==22) {
+				bt_seat3_4.setBackground(Color.red);
+			}else if(sitnum==23) {
+				bt_seat3_5.setBackground(Color.red);
+			}else if(sitnum==24) {
+				bt_seat3_6.setBackground(Color.red);
+			}else if(sitnum==25) {
+				bt_seat3_7.setBackground(Color.red);
+			}else if(sitnum==26) {
+				bt_seat3_8.setBackground(Color.red);
+			}else if(sitnum==27) {
+				bt_seat3_9.setBackground(Color.red);
+			}
+	}
+	
+	
+	
+	public void default_sitcolor_room1(int sitnum) {
+		if(sitnum==1) {
+		bt_seat1_1.setBackground(new JButton().getBackground());
+		}else if(sitnum==2) {
+			bt_seat1_2.setBackground(new JButton().getBackground());
+			}else if(sitnum==3) {
+				bt_seat1_3.setBackground(new JButton().getBackground());
+			}else if(sitnum==4) {
+				bt_seat1_4.setBackground(new JButton().getBackground());
+			}else if(sitnum==5) {
+				bt_seat1_5.setBackground(new JButton().getBackground());
+			}else if(sitnum==6) {
+				bt_seat1_6.setBackground(new JButton().getBackground());
+			}else if(sitnum==7) {
+				bt_seat1_7.setBackground(new JButton().getBackground());
+			}else if(sitnum==8) {
+				bt_seat1_8.setBackground(new JButton().getBackground());
+			}else if(sitnum==9) {
+				bt_seat1_9.setBackground(new JButton().getBackground());
+			}
+	}
+	
+	
+	public void default_sitcolor_room2(int sitnum) {
+		if(sitnum==10) {
+		bt_seat2_1.setBackground(new JButton().getBackground());
+		}else if(sitnum==11) {
+			bt_seat2_2.setBackground(new JButton().getBackground());
+			}else if(sitnum==12) {
+				bt_seat2_3.setBackground(new JButton().getBackground());
+			}else if(sitnum==13) {
+				bt_seat2_4.setBackground(new JButton().getBackground());
+			}else if(sitnum==14) {
+				bt_seat2_5.setBackground(new JButton().getBackground());
+			}else if(sitnum==15) {
+				bt_seat2_6.setBackground(new JButton().getBackground());
+			}else if(sitnum==16) {
+				bt_seat2_7.setBackground(new JButton().getBackground());
+			}else if(sitnum==17) {
+				bt_seat2_8.setBackground(new JButton().getBackground());
+			}else if(sitnum==18) {
+				bt_seat2_9.setBackground(new JButton().getBackground());
+			}
+	}
+	
+	public void default_sitcolor_room3(int sitnum) {
+		if(sitnum==19) {
+		bt_seat3_1.setBackground(new JButton().getBackground());
+		}else if(sitnum==20) {
+			bt_seat3_2.setBackground(new JButton().getBackground());
+			}else if(sitnum==21) {
+				bt_seat3_3.setBackground(new JButton().getBackground());
+			}else if(sitnum==22) {
+				bt_seat3_4.setBackground(new JButton().getBackground());
+			}else if(sitnum==23) {
+				bt_seat3_5.setBackground(new JButton().getBackground());
+			}else if(sitnum==24) {
+				bt_seat3_6.setBackground(new JButton().getBackground());
+			}else if(sitnum==25) {
+				bt_seat3_7.setBackground(new JButton().getBackground());
+			}else if(sitnum==26) {
+				bt_seat3_8.setBackground(new JButton().getBackground());
+			}else if(sitnum==27) {
+				bt_seat3_9.setBackground(new JButton().getBackground());
+			}
+	}
+	
+
+	   public void showMsg(String msg) {
+		   JOptionPane.showMessageDialog(this, msg);
+	   }//showMsg
+	   
+	   public String showInput(String msg) {
+		   return JOptionPane.showInputDialog(this, msg);
+	   }//showInput
+	   
+	   public int showConfirm(String msg) {
+		   return JOptionPane.showConfirmDialog(this, msg);
+	   }//showConfirm
+	
+	   public void displayTable(ArrayList<ReservationVO> list) {
+		   dtm.setRowCount(0);
+		   System.out.println(list.toString());
+		   
+		   for(int i=0; i<list.size(); i++) {
+			   ReservationVO vo = list.get(i);
+			   Object []rowData = {vo.getUser_num(), vo.getSit_num(), vo.getSit_start(), vo.getSit_end(), vo.getSit_remain()};
+			   dtm.addRow(rowData);
+		   }
+	   }
+	} //displayTable
+	
+	//public static void main(String[] args) {
+	//	new ServiceForm();
+	//}}
