@@ -18,7 +18,7 @@ CREATE TABLE user_tab
 drop SEQUENCE user_tab_SEQ;
 CREATE SEQUENCE user_tab_SEQ
 START WITH 1
-INCREMENT BY 1;
+INCREMENT BY 1
 NOCYCLE
 NOCACHE;
 /
@@ -35,6 +35,9 @@ insert into user_tab
 values (user_tab_SEQ.nextval,'이진주','서울특별시','010','9999','0000','jinju','1111');
 insert into user_tab
 values (user_tab_SEQ.nextval,'정기복','경기도','010','1234','5678','jibok','1111');
+
+insert into user_tab
+values (user_tab_SEQ.nextval,'관리자','하늘','010','1234','5678','admin','manager');
 
 select * from user_tab;
 
