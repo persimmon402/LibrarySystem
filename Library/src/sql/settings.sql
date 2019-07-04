@@ -1,3 +1,33 @@
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+CREATE TABLE reservation_tab
+(
+    res_num      NUMBER       NOT NULL, 
+    sit_num      NUMBER       NULL, 
+    user_num     NUMBER       NULL, 
+    sit_start    TIMESTAMP    NULL, 
+    sit_end      TIMESTAMP    NULL, 
+    CONSTRAINT RESERVATION_TAB_PK PRIMARY KEY (res_num)
+);
+
+CREATE SEQUENCE reservation_tab_SEQ
+START WITH 1
+INCREMENT BY 1;
+
+
+CREATE OR REPLACE TRIGGER reservation_tab_AI_TRG
+BEFORE INSERT ON reservation_tab 
+REFERENCING NEW AS NEW FOR EACH ROW 
+BEGIN 
+    SELECT reservation_tab_SEQ.NEXTVAL
+    INTO:NEW.res_num
+    FROM DUAL;
+END;
+/
+
+
+
+
 --user_tab.sql
 
 drop table user_tab;
@@ -22,26 +52,23 @@ INCREMENT BY 1;
 NOCYCLE
 NOCACHE;
 /
---↓ 6명의 샘플 데이터
+--↓ 6명의 샘플 데이터. 비밀번호는 전부 1111임
 insert into user_tab
-values (user_tab_SEQ.nextval,'관리자','경기도','010','1234','5678','manager','admin');
+values (user_tab_SEQ.nextval,'관리자','부산','010','1111','2222','admin','1111');
 insert into user_tab
-values (user_tab_SEQ.nextval,'구본진','동부','010','1111','2222','1111','bonjin');
+values (user_tab_SEQ.nextval,'구본진','동부','010','1111','2222','bonjin','1111');
 insert into user_tab
-values (user_tab_SEQ.nextval,'김지우','서부','010','3333','4444','1111','jiwoo');
+values (user_tab_SEQ.nextval,'김지우','서부','010','3333','4444','jiwoo','1111');
 insert into user_tab
-values (user_tab_SEQ.nextval,'백기현','남부','010','5555','6666','1111','gihyun');
+values (user_tab_SEQ.nextval,'백기현','남부','010','5555','6666','gihyun','1111');
 insert into user_tab
-values (user_tab_SEQ.nextval,'윤유빈','북부','010','7777','8888','1111','yoobin');
+values (user_tab_SEQ.nextval,'윤유빈','북부','010','7777','8888','yoobin','1111');
 insert into user_tab
-values (user_tab_SEQ.nextval,'이진주','서울특별시','010','9999','0000','1111','jinju');
+values (user_tab_SEQ.nextval,'이진주','서울특별시','010','9999','0000','jinju','1111');
 insert into user_tab
-values (user_tab_SEQ.nextval,'정기복','경기도','010','1234','5678','1111','gibok');
+values (user_tab_SEQ.nextval,'정기복','경기도','010','1234','5678','jibok','1111');
 
 select * from user_tab;
-
-delete from user_tab
-where user_name='zsxdc';
 
 --sit_tab
 drop table sit_tab;
@@ -53,7 +80,7 @@ CREATE TABLE sit_tab
     CONSTRAINT SIT_TAB_PK PRIMARY KEY (sit_num)
 );
 /
---MAXVALUE 27에 유의
+
 drop sequence sit_tab_seq;
 CREATE SEQUENCE sit_tab_SEQ
 START WITH 1
@@ -62,7 +89,7 @@ MAXVALUE 27
 NOCYCLE
 NOCACHE;
 /
---열람실1
+
 insert into sit_tab values (sit_tab_SEQ.nextval, 1, 0);
 insert into sit_tab values (sit_tab_SEQ.nextval, 1, 0);
 insert into sit_tab values (sit_tab_SEQ.nextval, 1, 0);
@@ -72,7 +99,7 @@ insert into sit_tab values (sit_tab_SEQ.nextval, 1, 0);
 insert into sit_tab values (sit_tab_SEQ.nextval, 1, 0);
 insert into sit_tab values (sit_tab_SEQ.nextval, 1, 0);
 insert into sit_tab values (sit_tab_SEQ.nextval, 1, 0);
---열람실2
+
 insert into sit_tab values (sit_tab_SEQ.nextval, 2, 0);
 insert into sit_tab values (sit_tab_SEQ.nextval, 2, 0);
 insert into sit_tab values (sit_tab_SEQ.nextval, 2, 0);
@@ -82,7 +109,7 @@ insert into sit_tab values (sit_tab_SEQ.nextval, 2, 0);
 insert into sit_tab values (sit_tab_SEQ.nextval, 2, 0);
 insert into sit_tab values (sit_tab_SEQ.nextval, 2, 0);
 insert into sit_tab values (sit_tab_SEQ.nextval, 2, 0);
---열람실3
+
 insert into sit_tab values (sit_tab_SEQ.nextval, 3, 0);
 insert into sit_tab values (sit_tab_SEQ.nextval, 3, 0);
 insert into sit_tab values (sit_tab_SEQ.nextval, 3, 0);
@@ -94,4 +121,3 @@ insert into sit_tab values (sit_tab_SEQ.nextval, 3, 0);
 insert into sit_tab values (sit_tab_SEQ.nextval, 3, 0);
 
 select * from sit_tab;
-
