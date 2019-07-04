@@ -1,4 +1,4 @@
-package model.vo;
+package com.library.model.vo;
 
 import java.sql.Timestamp;
 

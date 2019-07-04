@@ -18,28 +18,30 @@ CREATE TABLE user_tab
 drop SEQUENCE user_tab_SEQ;
 CREATE SEQUENCE user_tab_SEQ
 START WITH 1
-INCREMENT BY 1
+INCREMENT BY 1;
 NOCYCLE
 NOCACHE;
 /
 --↓ 6명의 샘플 데이터
 insert into user_tab
-values (user_tab_SEQ.nextval,'구본진','동부','010','1111','2222','bonjin','1111');
+values (user_tab_SEQ.nextval,'관리자','경기도','010','1234','5678','manager','admin');
 insert into user_tab
-values (user_tab_SEQ.nextval,'김지우','서부','010','3333','4444','jiwoo','1111');
+values (user_tab_SEQ.nextval,'구본진','동부','010','1111','2222','1111','bonjin');
 insert into user_tab
-values (user_tab_SEQ.nextval,'백기현','남부','010','5555','6666','gihyun','1111');
+values (user_tab_SEQ.nextval,'김지우','서부','010','3333','4444','1111','jiwoo');
 insert into user_tab
-values (user_tab_SEQ.nextval,'윤유빈','북부','010','7777','8888','yoobin','1111');
+values (user_tab_SEQ.nextval,'백기현','남부','010','5555','6666','1111','gihyun');
 insert into user_tab
-values (user_tab_SEQ.nextval,'이진주','서울특별시','010','9999','0000','jinju','1111');
+values (user_tab_SEQ.nextval,'윤유빈','북부','010','7777','8888','1111','yoobin');
 insert into user_tab
-values (user_tab_SEQ.nextval,'정기복','경기도','010','1234','5678','jibok','1111');
-
+values (user_tab_SEQ.nextval,'이진주','서울특별시','010','9999','0000','1111','jinju');
 insert into user_tab
-values (user_tab_SEQ.nextval,'관리자','하늘','010','1234','5678','admin','manager');
+values (user_tab_SEQ.nextval,'정기복','경기도','010','1234','5678','1111','gibok');
 
 select * from user_tab;
+
+delete from user_tab
+where user_name='zsxdc';
 
 --sit_tab
 drop table sit_tab;

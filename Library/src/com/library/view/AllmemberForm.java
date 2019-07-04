@@ -1,4 +1,4 @@
-package view;
+package com.library.view;
 
 import java.awt.Font;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import model.vo.UserVO;
+import com.library.model.vo.UserVO;
 
 public class AllmemberForm extends JFrame {
 

@@ -1,4 +1,4 @@
-package view;
+package com.library.view;
 
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -11,7 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import model.vo.ReservationVO;
+import com.library.model.vo.ReservationVO;
 
 public class ServiceForm_adm extends JFrame {
 
@@ -31,12 +31,15 @@ public class ServiceForm_adm extends JFrame {
 	public DefaultTableModel dtm;
 	public JTable table_service_adm;
 	public JScrollPane scroll_table;
+	Color cc = new Color(255,192,203);
 
 	public ServiceForm_adm() {
 
 		Object[][] rowData = new Object[0][6];
 		String[] columTitle = { "회원번호", "이름", "좌석번호", "예약번호", "입실시간", "퇴실시간" };
 
+		Color c = new Color(151, 216, 244);
+		
 		dtm = new DefaultTableModel(rowData, columTitle);
 		table_service_adm = new JTable(dtm); // 테이블
 		scroll_table = new JScrollPane(table_service_adm);
@@ -48,6 +51,11 @@ public class ServiceForm_adm extends JFrame {
 		bt_room3_adm = new JButton("3열람실");
 		bt_logout_adm = new JButton("로그아웃");
 		bt_allCustom = new JButton("모든회원정보");
+		bt_allCustom.setBackground(c);
+		bt_logout_adm.setBackground(c);
+		bt_room1_adm.setBackground(c);
+		bt_room2_adm.setBackground(c);
+		bt_room3_adm.setBackground(c);
 
 		bt_seat1_1_adm = new JButton("1");
 		bt_seat1_2_adm = new JButton("2");
@@ -178,7 +186,7 @@ public class ServiceForm_adm extends JFrame {
 		p_back_adm.add(p_room3_adm);
 		p_back_adm.add(scroll_table);
 		p_back_adm.setLayout(null);
-		p_back_adm.setBackground(Color.orange);
+		p_back_adm.setBackground(Color.white);
 		p_room1_adm.setVisible(true);
 		p_room2_adm.setVisible(false);
 		p_room3_adm.setVisible(false);
@@ -248,67 +256,67 @@ public class ServiceForm_adm extends JFrame {
 
 	public void change_sitcolor_room1(int sitnum) {
 		if (sitnum == 1) {
-			bt_seat1_1_adm.setBackground(Color.red);
+			bt_seat1_1_adm.setBackground(cc);
 		} else if (sitnum == 2) {
-			bt_seat1_2_adm.setBackground(Color.red);
+			bt_seat1_2_adm.setBackground(cc);
 		} else if (sitnum == 3) {
-			bt_seat1_3_adm.setBackground(Color.red);
+			bt_seat1_3_adm.setBackground(cc);
 		} else if (sitnum == 4) {
-			bt_seat1_4_adm.setBackground(Color.red);
+			bt_seat1_4_adm.setBackground(cc);
 		} else if (sitnum == 5) {
-			bt_seat1_5_adm.setBackground(Color.red);
+			bt_seat1_5_adm.setBackground(cc);
 		} else if (sitnum == 6) {
-			bt_seat1_6_adm.setBackground(Color.red);
+			bt_seat1_6_adm.setBackground(cc);
 		} else if (sitnum == 7) {
-			bt_seat1_7_adm.setBackground(Color.red);
+			bt_seat1_7_adm.setBackground(cc);
 		} else if (sitnum == 8) {
-			bt_seat1_8_adm.setBackground(Color.red);
+			bt_seat1_8_adm.setBackground(cc);
 		} else if (sitnum == 9) {
-			bt_seat1_9_adm.setBackground(Color.red);
+			bt_seat1_9_adm.setBackground(cc);
 		}
 	}
 
 	public void change_sitcolor_room2(int sitnum) {
 		if (sitnum == 10) {
-			bt_seat2_1_adm.setBackground(Color.red);
+			bt_seat2_1_adm.setBackground(cc);
 		} else if (sitnum == 11) {
-			bt_seat2_2_adm.setBackground(Color.red);
+			bt_seat2_2_adm.setBackground(cc);
 		} else if (sitnum == 12) {
-			bt_seat2_3_adm.setBackground(Color.red);
+			bt_seat2_3_adm.setBackground(cc);
 		} else if (sitnum == 13) {
-			bt_seat2_4_adm.setBackground(Color.red);
+			bt_seat2_4_adm.setBackground(cc);
 		} else if (sitnum == 14) {
-			bt_seat2_5_adm.setBackground(Color.red);
+			bt_seat2_5_adm.setBackground(cc);
 		} else if (sitnum == 15) {
-			bt_seat2_6_adm.setBackground(Color.red);
+			bt_seat2_6_adm.setBackground(cc);
 		} else if (sitnum == 16) {
-			bt_seat2_7_adm.setBackground(Color.red);
+			bt_seat2_7_adm.setBackground(cc);
 		} else if (sitnum == 17) {
-			bt_seat2_8_adm.setBackground(Color.red);
+			bt_seat2_8_adm.setBackground(cc);
 		} else if (sitnum == 18) {
-			bt_seat2_9_adm.setBackground(Color.red);
+			bt_seat2_9_adm.setBackground(cc);
 		}
 	}
 
 	public void change_sitcolor_room3(int sitnum) {
 		if (sitnum == 19) {
-			bt_seat3_1_adm.setBackground(Color.red);
+			bt_seat3_1_adm.setBackground(cc);
 		} else if (sitnum == 20) {
-			bt_seat3_2_adm.setBackground(Color.red);
+			bt_seat3_2_adm.setBackground(cc);
 		} else if (sitnum == 21) {
-			bt_seat3_3_adm.setBackground(Color.red);
+			bt_seat3_3_adm.setBackground(cc);
 		} else if (sitnum == 22) {
-			bt_seat3_4_adm.setBackground(Color.red);
+			bt_seat3_4_adm.setBackground(cc);
 		} else if (sitnum == 23) {
-			bt_seat3_5_adm.setBackground(Color.red);
+			bt_seat3_5_adm.setBackground(cc);
 		} else if (sitnum == 24) {
-			bt_seat3_6_adm.setBackground(Color.red);
+			bt_seat3_6_adm.setBackground(cc);
 		} else if (sitnum == 25) {
-			bt_seat3_7_adm.setBackground(Color.red);
+			bt_seat3_7_adm.setBackground(cc);
 		} else if (sitnum == 26) {
-			bt_seat3_8_adm.setBackground(Color.red);
+			bt_seat3_8_adm.setBackground(cc);
 		} else if (sitnum == 27) {
-			bt_seat3_9_adm.setBackground(Color.red);
+			bt_seat3_9_adm.setBackground(cc);
 		}
 	}
 

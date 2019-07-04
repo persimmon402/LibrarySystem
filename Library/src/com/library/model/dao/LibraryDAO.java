@@ -1,4 +1,4 @@
-package model.dao;
+package com.library.model.dao;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -14,9 +14,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import model.vo.ReservationVO;
-import model.vo.SitVO;
-import model.vo.UserVO;
+import com.library.model.vo.ReservationVO;
+import com.library.model.vo.SitVO;
+import com.library.model.vo.UserVO;
 
 public class LibraryDAO {
 
@@ -127,12 +127,36 @@ public class LibraryDAO {
 			disconnect();
 		}
 	}// upOverSit
-
-	public void delSit() {// 사용끝시간이 현재시간보다 적으면 예약테이블에서 지워주기 -이진주
+	
+	public void upSit_tab() {// 시간지난 자리 1->0 변경 순서가 upSit_tab() -> delres_tab()
 		connect();
+		LocalDateTime currentDateTime = LocalDateTime.now();
+		Timestamp smp = Timestamp.valueOf(LocalDateTime.now());
+		
 		try {
-			String sql = "delete from reservation_tab where sit_end<=now()";
+			String sql = "update sit_tab set sit_check=0 where sit_num in "
+					+ "(select sit_num from reservation_tab where sit_end<?)";
 			stmt = conn.prepareStatement(sql);
+			stmt.setTimestamp(1, smp);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+	}
+
+	public void delres_tab() {// 사용끝시간이 현재시간보다 적으면 예약테이블에서 지워주기 -이진주
+		connect();
+		LocalDateTime currentDateTime = LocalDateTime.now();
+		Timestamp smp = Timestamp.valueOf(LocalDateTime.now());
+		try {
+			String sql = "delete from reservation_tab where sit_end<?";
+			stmt = conn.prepareStatement(sql);
+			
+			stmt.setTimestamp(1, smp);
+			
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -451,16 +475,7 @@ public class LibraryDAO {
 		return list;
 	}
 
-	private void connect() {
-		try {
-			conn = DriverManager.getConnection(pro.getProperty("url"), pro.getProperty("user"),
-					pro.getProperty("password"));
-
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		}
-	}
+	
 
 	// -------------------------------------------------------김지우
 
@@ -510,14 +525,15 @@ public class LibraryDAO {
 	public boolean update(UserVO vo) {// 회원정보를 수정하는 기능 -김지우
 		connect();
 		try {
-			String sql = "update user_id set user_pwd=?, user_phone1=?, user_phone2=?, user_phone3=? user_addr=? where user_id=?";
+			String sql = "update user_tab set user_pwd=?, user_name=?, user_phone1=?, user_phone2=?, user_phone3=?, user_addr=? where user_id=?";
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, vo.getUser_pwd());
-			stmt.setString(2, vo.getUser_phone1());
-			stmt.setString(3, vo.getUser_phone2());
-			stmt.setString(4, vo.getUser_phone3());
-			stmt.setString(5, vo.getUser_addr());
-			stmt.setString(5, vo.getUser_id());
+			stmt.setString(2, vo.getUser_name());
+			stmt.setString(3, vo.getUser_phone1());
+			stmt.setString(4, vo.getUser_phone2());
+			stmt.setString(5, vo.getUser_phone3());
+			stmt.setString(6, vo.getUser_addr());
+			stmt.setString(7, vo.getUser_id());
 			int t = stmt.executeUpdate();
 			if (t == 1) {// 수정된 행의 개수가 존재한다면
 				return true;
@@ -667,6 +683,40 @@ public class LibraryDAO {
 			disconnect();
 		}
 		return list;
+	}
+	//============================================================
+	//좌석예약시 한사람에 한명만 자리예약 위해서 예약 테이블 조회
+	public int countRes(int user_num) {
+		connect();
+		int count = 999;
+		
+		try {
+			String sql = "select count(sit_num) cnt from reservation_tab where user_num=?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, user_num);
+			rs = stmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt("cnt");
+				return count;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return count;
+	}
+	
+	private void connect() {
+		try {
+			conn = DriverManager.getConnection(pro.getProperty("url"), pro.getProperty("user"),
+					pro.getProperty("password"));
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
 	}
 
 	private void disconnect() {

@@ -1,4 +1,4 @@
-package model.vo;
+package com.library.model.vo;
 
 public class UserVO {
 

@@ -1,14 +1,15 @@
-package view;
+package com.library.view;
 
 import java.awt.Color;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import model.vo.UserVO;
+import com.library.model.vo.UserVO;
 
 public class UpJoinForm_adm extends JFrame {
 
@@ -16,10 +17,12 @@ public class UpJoinForm_adm extends JFrame {
 	public JPasswordField tf_pwd;
 	public JButton bt_submit, bt_cancle;
 	public JLabel la_title, la_id, la_pwd, la_name, la_phone, la_addr, la_bar1, la_bar2;
+	public JPanel p_back;
 
 	public UpJoinForm_adm() {
 		setTitle("회원정보수정");
-
+		Color c = new Color(151, 216, 244);
+		p_back = new JPanel();
 		tf_id = new JTextField();
 		tf_name = new JTextField();
 		tf_phone1 = new JTextField();
@@ -87,30 +90,31 @@ public class UpJoinForm_adm extends JFrame {
 		bt_submit.setBounds(450, 510, 80, 40);
 		bt_cancle.setBounds(570, 510, 80, 40);
 
-		add(tf_id);
-		add(tf_pwd);
-		add(tf_name);
-		add(tf_phone1);
-		add(tf_phone2);
-		add(tf_phone3);
-		add(tf_addr);
-		add(la_title);
-		add(la_id);
-		add(la_pwd);
-		add(la_name);
-		add(la_phone);
-		add(la_addr);
-		add(la_bar1);
-		add(la_bar2);
-		add(bt_submit);
-		add(bt_cancle);
+		p_back.add(tf_id);
+		p_back.add(tf_pwd);
+		p_back.add(tf_name);
+		p_back.add(tf_phone1);
+		p_back.add(tf_phone2);
+		p_back.add(tf_phone3);
+		p_back.add(tf_addr);
+		p_back.add(la_title);
+		p_back.add(la_id);
+		p_back.add(la_pwd);
+		p_back.add(la_name);
+		p_back.add(la_phone);
+		p_back.add(la_addr);
+		p_back.add(la_bar1);
+		p_back.add(la_bar2);
+		p_back.add(bt_submit);
+		p_back.add(bt_cancle);
 
-		bt_submit.setBackground(new Color(204, 102, 255));
-		bt_submit.setForeground(Color.white);
-		bt_cancle.setBackground(new Color(204, 102, 255));
-		bt_cancle.setForeground(Color.white);
-		setBackground(new Color(255, 204, 255));
-		setLayout(null);
+		bt_submit.setBackground(c);
+		bt_submit.setForeground(Color.black);
+		bt_cancle.setBackground(c);
+		bt_cancle.setForeground(Color.black);
+		p_back.setBackground(Color.white);
+		p_back.setLayout(null);
+		setContentPane(p_back);
 		setBounds(300, 200, 1100, 700);
 //	      setVisible(true);
 	}
@@ -126,8 +130,8 @@ public class UpJoinForm_adm extends JFrame {
 		tf_addr.setText(vo.getUser_addr());
 
 	}// initText
-	// public static void main(String[] args) {
-	// new UpJoinForm_adm();
-	// }
+		// public static void main(String[] args) {
+		// new UpJoinForm_adm();
+		// }
 
 }// class

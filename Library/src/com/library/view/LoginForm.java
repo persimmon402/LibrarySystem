@@ -1,9 +1,11 @@
-package view;
+package com.library.view;
 
 import javax.swing.JFrame;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,9 +25,18 @@ public class LoginForm extends JFrame {
 
 	public LoginForm() {
 
+		Color c = new Color(151, 216, 244);
 		setTitle("Login Form");
 		back = new JPanel();
-		p_img = new JPanel();
+		p_img = new JPanel() {
+			ImageIcon icon = new ImageIcon("src/image/img_library.png");
+			Image img = icon.getImage();
+
+			public void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+			}
+		};
 
 		tf_id = new JTextField();
 		tf_pass = new JPasswordField();
@@ -36,6 +47,9 @@ public class LoginForm extends JFrame {
 		bt_join = new JButton("회원가입");
 		bt_manager = new JButton("관리자");
 		bt_join.setFocusable(false);
+		bt_join.setBackground(c);
+		bt_login.setBackground(c);
+		bt_manager.setBackground(c);
 
 		la_pass = new JLabel("Password");
 		la_id = new JLabel("I  D");
