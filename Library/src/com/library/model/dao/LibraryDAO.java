@@ -534,7 +534,9 @@ public class LibraryDAO {
 			stmt.setString(5, vo.getUser_phone3());
 			stmt.setString(6, vo.getUser_addr());
 			stmt.setString(7, vo.getUser_id());
+			
 			int t = stmt.executeUpdate();
+
 			if (t == 1) {// 수정된 행의 개수가 존재한다면
 				return true;
 			}

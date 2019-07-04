@@ -1,5 +1,6 @@
 package com.library.view;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 
@@ -27,6 +28,8 @@ public class AllmemberForm extends JFrame {
 	public AllmemberForm() {
 		setTitle("회원정보");
 
+		Color c = new Color(151, 216, 244);
+
 		Object[][] rowData = new Object[0][7];
 		String[] columTitle = { "회원번호(pk)", "아이디", "이름", "전화번호", "주소" }; // 보안상 비밀번호를 제거했습니다
 		dtm = new DefaultTableModel(rowData, columTitle);
@@ -42,6 +45,10 @@ public class AllmemberForm extends JFrame {
 		bt_up = new JButton("수정");
 		bt_del = new JButton("삭제");
 		bt_exit = new JButton("나가기");
+		bt_del.setBackground(c);
+		bt_exit.setBackground(c);
+		bt_sel_name.setBackground(c);
+		bt_up.setBackground(c);
 
 		southp = new JPanel();
 //        southp.add(bt_sel_all);

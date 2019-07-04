@@ -2,6 +2,8 @@ package com.library.control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Timestamp;
@@ -139,29 +141,94 @@ public class Controller implements ActionListener {
 			}
 		});
 		joinForm.addWindowListener(new WindowAdapter() {
-	         public void windowClosing(WindowEvent e) {
-	            joinForm.setVisible(false);
-	            loginForm.setVisible(true);
-	         }
-	    });
+			public void windowClosing(WindowEvent e) {
+				joinForm.setVisible(false);
+				loginForm.setVisible(true);
+			}
+		});
+		
+		//=========================================================
+		//ÇÚµåÆù¹øÈ£ ÀÔ·Â½Ã  Æ÷Ä¿½º ÀÚµ¿À¸·Î ³Ñ°ÜÁÖ±â
+
+		joinForm.tf_phone1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (joinForm.tf_phone1.getText().length() == 3) {
+					joinForm.tf_phone2.requestFocus();
+				}
+			}
+		});
+		joinForm.tf_phone2.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (joinForm.tf_phone2.getText().length() == 4) {
+					joinForm.tf_phone3.requestFocus();
+				}
+			}
+		});
+		joinForm.tf_phone3.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (joinForm.tf_phone3.getText().length() == 4) {
+					joinForm.tf_addr.requestFocus();
+				}
+			}
+		});
+		//----------------------------------------------------------
+		upJoinForm.tf_phone1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (upJoinForm.tf_phone1.getText().length() == 3) {
+					upJoinForm.tf_phone2.requestFocus();
+				}
+			}
+		});
+		upJoinForm.tf_phone2.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (upJoinForm.tf_phone2.getText().length() == 4) {
+					upJoinForm.tf_phone3.requestFocus();
+				}
+			}
+		});
+		upJoinForm.tf_phone3.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (upJoinForm.tf_phone3.getText().length() == 4) {
+					upJoinForm.tf_addr.requestFocus();
+				}
+			}
+		});
+		//--------------------------------------------------------------
+		
+		upJoinForm_adm.tf_phone1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (upJoinForm_adm.tf_phone1.getText().length() == 3) {
+					upJoinForm_adm.tf_phone2.requestFocus();
+				}
+			}
+		});
+		upJoinForm_adm.tf_phone2.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (upJoinForm_adm.tf_phone2.getText().length() == 4) {
+					upJoinForm_adm.tf_phone3.requestFocus();
+				}
+			}
+		});
+		upJoinForm_adm.tf_phone3.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (upJoinForm_adm.tf_phone3.getText().length() == 4) {
+					upJoinForm_adm.tf_addr.requestFocus();
+				}
+			}
+		});
+		
 
 	}
 
-//	public void checkId() {// ÀÔ·ÂÇÑ ¾ÆÀÌµð°¡ Áßº¹ÀÎÁö ¾Æ´ÑÁö È®ÀÎÇÏ´Â ±â´É - ÀÌ°Íµµ controller¿¡ º¹»çÇØ ÁÖ¼¼¿ä -±èÁö¿ì
-//		LibraryDAO dao = new LibraryDAO();
-//
-//		String id = joinForm.showInput("¾ÆÀÌµð¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
-//		
-//		if (dao.findExistId(id.trim()) == 1) {
-//			joinForm.showMsg("ÀÌ¹Ì »ç¿ëÁßÀÎ ¾ÆÀÌµðÀÔ´Ï´Ù!!");
-//		} else {
-//			joinForm.showMsg("±× ¾ÆÀÌµð´Â »ç¿ë°¡´ÉÇÕ´Ï´Ù.");
-//			if (joinForm.showConfirm("ÀÌ ¾ÆÀÌµð¸¦ »ç¿ëÇÏ½Ã°Ú½À´Ï±î?") == 0) {
-//				joinForm.tf_id.setText(id);
-//			}
-//		}
-//
-//	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -280,9 +347,9 @@ public class Controller implements ActionListener {
 			String id = joinForm.tf_id.getText();
 			String pwd = new String(joinForm.tf_pwd.getPassword());
 			String name = joinForm.tf_name.getText();
-			String phone1 = joinForm.tf_phone1.getText();
-			String phone2 = joinForm.tf_phone2.getText();
-			String phone3 = joinForm.tf_phone3.getText();
+			String phone1 = joinForm.tf_phone1.getText().trim();
+			String phone2 = joinForm.tf_phone2.getText().trim();
+			String phone3 = joinForm.tf_phone3.getText().trim();
 			String addr = joinForm.tf_addr.getText();
 
 			vo.setUser_id(id);
@@ -300,7 +367,7 @@ public class Controller implements ActionListener {
 				return;
 			} else if (!vo.getUser_pwd()
 					.matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$")) {
-				joinForm.showMsg("ºñ¹Ð¹øÈ£´Â¼ýÀÚ, ¹®ÀÚ, Æ¯¼ö¹®ÀÚ °¢°¢ 1°³ ÀÌ»ó Æ÷ÇÔÇÏ¿© ÃÖ¼Ò 8ÀÚ¸® ÀÌ»ó ÀÔ·ÂÇÏ¿©¾ß ÇÕ´Ï´Ù.");
+				joinForm.showMsg("ºñ¹Ð¹øÈ£´Â¼ýÀÚ, ¹®ÀÚ, Æ¯¼ö¹®ÀÚ(@,$,!,%,*,#,?,&) °¢°¢ 1°³ ÀÌ»ó Æ÷ÇÔÇÏ¿© ÃÖ¼Ò 8ÀÚ¸® ÀÌ»ó ÀÔ·ÂÇÏ¿©¾ß ÇÕ´Ï´Ù.");
 				joinForm.tf_pwd.requestFocus();
 				return;
 			} else if (vo.getUser_name().equals("")) {
@@ -329,9 +396,8 @@ public class Controller implements ActionListener {
 			}
 
 		} else if (ob == joinForm.bt_cancel) {// È¸¿ø°¡ÀÔÃ¢¿¡¼­ Ãë¼Ò ¹öÆ°À» ´©¸§-±èÁö¿ì
-
-			joinForm.setVisible(false);
 			joinForm.initText();
+			joinForm.setVisible(false);
 			loginForm.setVisible(true);
 
 		} else if (ob == joinForm.bt_check) {// È¸¿ø°¡ÀÔÃ¢¿¡¼­ Áßº¹È®ÀÎ ¹öÆ°À» ´©¸§-±èÁö¿ì
@@ -340,46 +406,30 @@ public class Controller implements ActionListener {
 			LibraryDAO dao = new LibraryDAO();
 
 			String id = joinForm.showInput("¾ÆÀÌµð¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
-			System.out.println("ÀÔ·ÂÇÑid="+id);
-			if(id.equals("")) {
+			if (id == null) {
+				return;
+			}
+			System.out.println("ÀÔ·ÂÇÑid=" + id);
+			if (id.equals("")) {
 				joinForm.showMsg("ºóÄ­Àº ÀÔ·ÂÇÒ¼ö ¾ø½À´Ï´Ù.");
 				return;
 			} else if (!id.trim().matches("^[a-zA-Z]*$")) {
 				joinForm.showMsg("¾ÆÀÌµð´Â ¿µ¹®ÀÚ·Î ±¸¼ºµÇ¾î¾ß ÇÕ´Ï´Ù. ´Ù½Ã Áßº¹È®ÀÎÀ» ÇØÁÖ½Ê½Ã¿À.");
 				return;
 			} else {
-			System.out.println(dao.findExistId(id));
-			if (id.trim() != null) {
-				if (dao.findExistId(id) > 0) {
-					joinForm.showMsg("ÀÌ¹Ì »ç¿ëÁßÀÎ ¾ÆÀÌµðÀÔ´Ï´Ù!!");
-				} else {
-					joinForm.showMsg("±× ¾ÆÀÌµð´Â »ç¿ë°¡´ÉÇÕ´Ï´Ù.");
-					if (joinForm.showConfirm("ÀÌ ¾ÆÀÌµð¸¦ »ç¿ëÇÏ½Ã°Ú½À´Ï±î?") == 0) {
-						joinForm.tf_id.setText(id);
-						joinForm.bt_submit.setEnabled(true);
+				System.out.println(dao.findExistId(id));
+				if (id.trim() != null) {
+					if (dao.findExistId(id) > 0) {
+						joinForm.showMsg("ÀÌ¹Ì »ç¿ëÁßÀÎ ¾ÆÀÌµðÀÔ´Ï´Ù!!");
+					} else {
+						joinForm.showMsg("±× ¾ÆÀÌµð´Â »ç¿ë°¡´ÉÇÕ´Ï´Ù.");
+						if (joinForm.showConfirm("ÀÌ ¾ÆÀÌµð¸¦ »ç¿ëÇÏ½Ã°Ú½À´Ï±î?") == 0) {
+							joinForm.tf_id.setText(id);
+							joinForm.bt_submit.setEnabled(true);
 						}
 					}
 				}
 			}
-		} else if (ob == upJoinForm.bt_submit) {// ³»Á¤º¸¼öÁ¤ Ã¢¿¡¼­ ¼öÁ¤¿Ï·á ¹öÆ°À» ´©¸§-±èÁö¿ì
-
-			UserVO vo = new UserVO();
-			vo.setUser_pwd(new String(upJoinForm.tf_pwd.getPassword()));
-			vo.setUser_phone1(upJoinForm.tf_phone1.getText());
-			vo.setUser_phone2(upJoinForm.tf_phone2.getText());
-			vo.setUser_phone3(upJoinForm.tf_phone3.getText());
-			vo.setUser_addr(upJoinForm.tf_addr.getText());
-
-			LibraryDAO dao = new LibraryDAO();
-			if (dao.update(vo)) {
-
-				upJoinForm.showMsg("¼öÁ¤µÇ¾ú½À´Ï´Ù.");
-				upJoinForm.setVisible(false);
-				serviceForm.setVisible(true);
-			} else {
-				upJoinForm.showMsg("ÀÔ·ÂµÈ µ¥ÀÌÅÍ¸¦ È®ÀÎÇÏ¼¼¿ä.");
-			}
-
 		} else if (ob == upJoinForm.bt_cancel) {// ³» Á¤º¸¼öÁ¤ Ã¢¿¡¼­ Ãë¼Ò ¹öÆ°À» ´©¸§ - ±èÁö¿ì
 
 			upJoinForm.setVisible(false);
@@ -483,8 +533,12 @@ public class Controller implements ActionListener {
 			String id = serviceForm.loginId;
 			int cnt = dao.countRes(dao.findusernumByid(id));
 			if (cnt == 0) {// ·Î±×ÀÎÇÑ À¯Àú°¡ ¿¹¾àÇÑ ÀÚ¸®°¡ ¾øÀ» ¶§
-				String pattern = "^[1-9]{1}$|^[1-2]{1}[0-7]{1}$";
+				String pattern = "^[1-9]{1}$|^1{1}[0-9]{1}$|^2{1}[0-7]{1}";
 				String sitNum = seatForm.showInput("¿¹¾àÇÏ½Ç ÁÂ¼®¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä");
+				System.out.println(sitNum);
+				if (sitNum == null) {
+					return;
+				}
 				if (sitNum.matches(pattern)) {// ¼ýÀÚ¸¸
 					int sit_num = Integer.parseInt(sitNum);
 					ReservationVO reservationvo = new ReservationVO();
@@ -579,14 +633,7 @@ public class Controller implements ActionListener {
 		}
 
 		// ----------------------------------------------------------------------À±À¯ºó
-//		else if (ob == serviceForm.bt_reserv) {
-//			LibraryDAO dao = new LibraryDAO();
-//			// seatreserveselectwindow.setVisible(true);
-//			String id = serviceForm.loginId;
-//			int user_num = dao.findusernumByid(id);
-//			serviceForm.displayTable(dao.findMyres(user_num));
-//			// list·Î ³Ñ¾î¿À´Â°Å È­¸é¿¡ º¸¿©ÁÖ±â
-//		} 
+
 		else if (ob == serviceForm.bt_room1) {
 			LibraryDAO dao = new LibraryDAO();
 			serviceForm.p_room1.setVisible(true);
@@ -790,6 +837,31 @@ public class Controller implements ActionListener {
 			vo.setUser_phone3(upJoinForm_adm.tf_phone3.getText());
 			vo.setUser_addr(upJoinForm_adm.tf_addr.getText());
 			dao = new LibraryDAO();
+
+			if (vo.getUser_name().equals("")) {
+				joinForm.showMsg("ÀÌ¸§Àº ¹Ýµå½Ã ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù.");
+				joinForm.tf_name.requestFocus();
+				return;
+			} else if (!vo.getUser_name().trim().matches("^[°¡-ÆR]*$")) {
+				joinForm.showMsg("ÀÌ¸§Àº ÇÑ±Û¸¸ ÀÔ·Â °¡´ÉÇÕ´Ï´Ù. ¿Ã¹Ù¸¥ ÀÌ¸§À» ÀÔ·ÂÇÏ½Ê½Ã¿À. ");
+				joinForm.tf_name.requestFocus();
+				return;
+			} else if (!vo.getUser_phone1().matches("^[\\d]*$") || !vo.getUser_phone2().matches("^[\\d]*$")
+					|| !vo.getUser_phone3().matches("^[\\d]*$")) {
+				joinForm.showMsg("ÀüÈ­¹øÈ£ ¶õ¿¡´Â ¹®ÀÚ¸¦ ÀÔ·ÂÇÏ¸é ¾ÈµË´Ï´Ù.");
+				return;
+			} else if (vo.getUser_phone1().length() != 3) {
+				joinForm.showMsg("ÀüÈ­¹øÈ£ Ã¹¹øÂ° Ä­¿¡´Â 3ÀÚ¸®ÀÇ ¼ýÀÚ¸¦ ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù.");
+				return;
+			} else if ((vo.getUser_phone2().length() != 4) || (vo.getUser_phone3().length()) != 4) {
+				joinForm.showMsg("ÀüÈ­¹øÈ£ µÎ¹øÂ°, ¼¼¹ø¤Š Ä­¿¡´Â 4ÀÚ¸®ÀÇ ¼ýÀÚ¸¦ ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù.");
+				return;
+			} else if (vo.getUser_addr().equals("")) {
+				joinForm.showMsg("ÁÖ¼Ò¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+				joinForm.tf_addr.requestFocus();
+				return;
+			}
+
 			if (dao.modify(vo)) {
 				allmemberForm.displayTable(dao.findAll());
 				upJoinForm_adm.setVisible(false);
@@ -806,20 +878,52 @@ public class Controller implements ActionListener {
 			UserVO vo = new UserVO();
 			LibraryDAO dao = new LibraryDAO();
 			vo.setUser_id(upJoinForm.tf_id.getText());
+
 			vo.setUser_name(upJoinForm.tf_name.getText());
+
 			vo.setUser_pwd(new String(upJoinForm.tf_pwd.getPassword()));
 			vo.setUser_phone1(upJoinForm.tf_phone1.getText());
 			vo.setUser_phone2(upJoinForm.tf_phone2.getText());
 			vo.setUser_phone3(upJoinForm.tf_phone3.getText());
 			vo.setUser_addr(upJoinForm.tf_addr.getText());
 
-			dao = new LibraryDAO();
-			if (dao.update(vo)) {
-				upJoinForm.showMsg("¼öÁ¤µÇ¾ú½À´Ï´Ù.");
-				upJoinForm.setVisible(false);
-				serviceForm.setVisible(true);
+			if (vo.getUser_pwd().equals("")) {
+				joinForm.showMsg("ºñ¹Ð¹øÈ£´Â ¹Ýµå½Ã ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù.");
+				joinForm.tf_pwd.requestFocus();
+				return;
+			} else if (!vo.getUser_pwd()
+					.matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$")) {
+				joinForm.showMsg("ºñ¹Ð¹øÈ£´Â¼ýÀÚ, ¹®ÀÚ, Æ¯¼ö¹®ÀÚ(@,$,!,%,*,#,?,&) °¢°¢ 1°³ ÀÌ»ó Æ÷ÇÔÇÏ¿© ÃÖ¼Ò 8ÀÚ¸® ÀÌ»ó ÀÔ·ÂÇÏ¿©¾ß ÇÕ´Ï´Ù.");
+				joinForm.tf_pwd.requestFocus();
+				return;
+			} else if (vo.getUser_name().equals("")) {
+				joinForm.showMsg("ÀÌ¸§Àº ¹Ýµå½Ã ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù.");
+				joinForm.tf_name.requestFocus();
+				return;
+			} else if (!vo.getUser_name().trim().matches("^[°¡-ÆR]*$")) {
+				joinForm.showMsg("ÀÌ¸§Àº ÇÑ±Û¸¸ ÀÔ·Â °¡´ÉÇÕ´Ï´Ù. ¿Ã¹Ù¸¥ ÀÌ¸§À» ÀÔ·ÂÇÏ½Ê½Ã¿À. ");
+				joinForm.tf_name.requestFocus();
+				return;
+			} else if (!vo.getUser_phone1().matches("^[\\d]*$") || !vo.getUser_phone2().matches("^[\\d]*$")
+					|| !vo.getUser_phone3().matches("^[\\d]*$")) {
+				joinForm.showMsg("ÀüÈ­¹øÈ£ ¶õ¿¡´Â ¹®ÀÚ¸¦ ÀÔ·ÂÇÏ¸é ¾ÈµË´Ï´Ù.");
+				return;
+			} else if (vo.getUser_phone1().length() != 3) {
+				joinForm.showMsg("ÀüÈ­¹øÈ£ Ã¹¹øÂ° Ä­¿¡´Â 3ÀÚ¸®ÀÇ ¼ýÀÚ¸¦ ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù.");
+				return;
+			} else if ((vo.getUser_phone2().length() != 4) || (vo.getUser_phone3().length()) != 4) {
+				joinForm.showMsg("ÀüÈ­¹øÈ£ µÎ¹øÂ°, ¼¼¹ø¤Š Ä­¿¡´Â 4ÀÚ¸®ÀÇ ¼ýÀÚ¸¦ ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù.");
+				return;
 			} else {
-				upJoinForm.showMsg("ÀÔ·ÂµÈ µ¥ÀÌÅÍ¸¦ È®ÀÎÇÏ¼¼¿ä.");
+
+				if (dao.update(vo)) {
+					upJoinForm.showMsg("¼öÁ¤µÇ¾ú½À´Ï´Ù.");
+					upJoinForm.setVisible(false);
+					serviceForm.setVisible(true);
+				} else {
+					upJoinForm.showMsg("¼öÁ¤¿¡ ½ÇÆÐÇß½À´Ï´Ù.");
+				}
+
 			}
 
 		} else if (ob == upJoinForm.bt_cancel) {// ³» Á¤º¸¼öÁ¤ Ã¢¿¡¼­ Ãë¼Ò ¹öÆ°À» ´©¸§ - ±èÁö¿ì
@@ -831,6 +935,7 @@ public class Controller implements ActionListener {
 		// ==============================================================================
 		/* º»Áø½ÃÀÛ */
 		else if (ob == serviceForm_adm.bt_logout_adm) {
+			joinForm.initText();
 			serviceForm_adm.setVisible(false);
 			loginForm.setVisible(true);
 		} else if (ob == serviceForm_adm.bt_room1_adm) {

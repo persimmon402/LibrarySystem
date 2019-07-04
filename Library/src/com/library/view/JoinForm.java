@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import com.library.model.vo.UserVO;
+
 public class JoinForm extends JFrame {
 
 	public JTextField tf_id, tf_name, tf_phone1, tf_phone2, tf_phone3, tf_addr;
@@ -67,6 +69,7 @@ public class JoinForm extends JFrame {
 		la_id.setBounds(350, 130, 200, 40);
 		tf_id.setBounds(500, 130, 200, 40);
 		tf_id.setFocusable(true);
+		tf_id.setEditable(false);
 
 		bt_check.setBounds(720, 130, 90, 40);
 
@@ -123,7 +126,17 @@ public class JoinForm extends JFrame {
 		setBounds(300, 200, 1100, 700);
 		setVisible(false);
 	}
-
+	
+	public void initText() {
+		tf_id.setText("");
+		tf_pwd.setText("");
+		tf_name.setText("");
+		tf_phone1.setText("");
+		tf_phone2.setText("");
+		tf_phone3.setText("");
+		tf_addr.setText("");
+		
+	}
 	public void showMsg(String msg) {
 		JOptionPane.showMessageDialog(this, msg);
 	}
@@ -134,16 +147,6 @@ public class JoinForm extends JFrame {
 
 	public int showConfirm(String msg) {
 		return JOptionPane.showConfirmDialog(this, msg);
-	}
-	
-	public void initText() {
-		tf_id.setText("");
-		tf_pwd.setText("");
-		tf_name.setText("");
-		tf_phone1.setText("");
-		tf_phone2.setText("");
-		tf_phone3.setText("");
-		tf_addr.setText("");
 	}
 
 //	public static void main(String[] args) {
